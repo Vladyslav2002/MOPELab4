@@ -1,5 +1,7 @@
 import random
 from math import sqrt
+import scipy.stats
+m = 3
 def proga(m):
     x1max = 70
     x1min = 20
@@ -46,6 +48,7 @@ def proga(m):
     text0 = "y  =  " + str('%.3f' % b0) + "  +  " + str('%.3f' % b1) + "*X1  +  " + str('%.3f' % b2) + "*X2  +"+str('%.3f'  %b3)+" * X3 + "+str('%.3f'  %b12)+" * X12 + "+str('%.3f'  %b13)+" * X13 +"+str('%.3f'  %b23)+" * X23 + "+str('%.3f'  %b123)+"* X123"
     for i in range(8):
         print(amatrix[i])
+    print('Рівняння регресії:')
     print(text0)
     ynlist = []
     for i in range(8):
@@ -63,9 +66,11 @@ def proga(m):
         S2ylist.append(S2y)
         S2ysum = S2ysum + S2y
     Gp = max(S2ylist) / S2ysum
+    print('Gp =', Gp)
     Gt = 0.5157
+    print('Gt =', Gt)
     if Gp < Gt:
-        print("Дисперсія  однорідна")
+        print("Gp < Gt, а отже дисперсія  однорідна")
     else:
         proga(m + 1)
     S2b = S2ysum / 8
@@ -142,9 +147,11 @@ def proga(m):
     if m >= 16:
         fisher = [3.8, 3, 2.6, 2.4, 2.2, 2.1, 1.8]
     Fg = fisher[f4 - 1]
+    print('Fp =', Fp)
+    print('Fg =', Fg)
     if Fp > Fg:
-        text2 = "Рівняння  регресії  неадекватне  оригіналу"
+        text2 = "Fp > Fg, а отже рівняння  регресії  неадекватне  оригіналу"
     else:
-        text2 = "Рівняння  регресії  адекватне  оригіналу"
+        text2 = "Fp < Fg, а отже рівняння  регресії  адекватне  оригіналу"
     print(text2)
-proga(3)
+proga(m)
